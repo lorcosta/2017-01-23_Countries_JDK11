@@ -1,8 +1,10 @@
 package it.polito.tdp.borders;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.borders.model.Country;
 import it.polito.tdp.borders.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,14 +26,27 @@ public class FXMLController {
     private TextField txtAnno;
 
     @FXML
-    private ComboBox<?> boxNazione;
+    private ComboBox<Country> boxNazione;
 
     @FXML
     private TextArea txtResult;
 
     @FXML
     void doCalcolaConfini(ActionEvent event) {
-
+    	this.txtResult.clear();
+    	String toBeParsed=this.txtAnno.getText();
+    	Integer anno=null;
+    	try {
+    		anno=Integer.parseInt(toBeParsed);
+    	}catch (NumberFormatException e) {
+    		e.printStackTrace();
+    		this.txtResult.appendText("ATTENZIONE! Il valore inserito non è un numero corretto.\n");
+    	}
+    	List<Country> stati=model.creaGrafo(anno);
+    	for(Country c:stati) {
+    		this.txtResult.appendText(c+", confinati:"+c.getConfinanti()+"\n");
+    	}
+    	
     }
 
     @FXML

@@ -1,11 +1,11 @@
 package it.polito.tdp.borders.model;
 
-public class Country {
+public class Country implements Comparable<Country>{
 
 	private int cCode ; // Country Code for the state
 	private String stateAbb ; // State Abbreviation (3 capital letters)
 	private String stateName ; // Full State name
-	
+	private Integer confinanti=0;
 	/**
 	 * Initialize a new {@link Country} object, with full parameters.
 	 * 
@@ -95,10 +95,20 @@ public class Country {
 	 */
 	@Override
 	public String toString() {
-		return String.format("[%s=%s]", stateAbb, stateName);
+		return String.format("%s=%s", stateAbb, stateName);
 	}
-	
-	
-	
+
+	public Integer getConfinanti() {
+		return confinanti;
+	}
+
+	public void setConfinanti(Integer confinanti) {
+		this.confinanti = confinanti;
+	}
+
+	@Override
+	public int compareTo(Country o) {
+		return this.confinanti.compareTo(o.confinanti);
+	}
 }
 
